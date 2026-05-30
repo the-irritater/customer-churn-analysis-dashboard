@@ -27,6 +27,7 @@ from sklearn.metrics import (
     roc_auc_score, roc_curve, confusion_matrix, classification_report,
 )
 import warnings
+import joblib
 
 warnings.filterwarnings("ignore")
 
@@ -165,7 +166,7 @@ def prepare_modeling_data():
     print(f"  Churn rate: {y.mean() * 100:.1f}%")
     print(f"  Features: {feature_names}")
 
-    return X, y, feature_names
+    return X, y, feature_names, le_circle, le_provider, le_conn
 
 
 # ---------------------------------------------------------------------------
@@ -258,7 +259,7 @@ def train_and_evaluate(X, y, feature_names):
         print(f"    ROC-AUC:   {auc:.4f}")
         print(f"    CV AUC:    {cv_scores.mean():.4f} (+/- {cv_scores.std():.4f})")
 
-    return results, feature_names
+    return results, feature_names, scaler
 
 
 # ---------------------------------------------------------------------------
@@ -443,10 +444,24 @@ def main():
     print("=" * 60)
 
     # Prepare data
-    X, y, feature_names = prepare_modeling_data()
+    X, y, feature_names, le_circle, le_provider, le_conn = prepare_modeling_data()
 
     # Train and evaluate
-    results, features = train_and_evaluate(X, y, feature_names)
+    results, features, scaler = train_and_evaluate(X, y, feature_names)
+
+    # Save encoders, scaler and models
+    print("\nSaving encoders, scaler and models...")
+    joblib.dump(scaler, PROJECT_ROOT / "notebooks" / "scaler.pkl")
+    joblib.dump({
+        "circle": le_circle,
+        "provider": le_provider,
+        "connection": le_conn
+    }, PROJECT_ROOT / "notebooks" / "label_encoders.pkl")
+
+    for name, res in results.items():
+        model_filename = name.lower().replace(" ", "_") + ".pkl"
+        joblib.dump(res["model"], PROJECT_ROOT / "notebooks" / f"model_{model_filename}")
+        print(f"  Saved model_{model_filename}")
 
     # Generate visualizations
     print("\nGenerating model visualizations...")

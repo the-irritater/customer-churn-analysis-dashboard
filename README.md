@@ -1,6 +1,7 @@
 # Customer Churn Analysis and Retention Strategy
 
 **Author:** Sanman Kadam  
+**Live Application:** [Interactive Streamlit Dashboard](https://customer-churn-analysis.streamlit.app/)  
 **Status:** Complete  
 **License:** MIT
 
@@ -412,7 +413,7 @@ jupyter notebook notebooks/Project.ipynb
 - **Cohort Analysis** — Track churn behavior by subscriber acquisition cohort to identify lifecycle patterns and early warning signals.
 - **Real-Time Monitoring** — Deploy the XGBoost model as an API endpoint for live churn scoring with automated alerts.
 - **A/B Testing Framework** — Measure the effectiveness of different retention interventions with statistical rigor.
-- **Retention Strategy Simulation** — Build scenario models for different investment levels and their expected ROI under varying market conditions.
+- **Competitor Price Index Integration** — Incorporate external pricing feeds to assess how competitor tariff changes influence regional subscriber churn.
 - **Customer Lifetime Value (CLV) Model** — Integrate predicted CLV to prioritize retention efforts by long-term economic value rather than short-term revenue.
 
 ---
