@@ -1,0 +1,214 @@
+Reading notebook from /Users/the_irritater/Projects/customer-churn-analysis-dashboard/notebooks/Project.ipynb...
+Starting execution of notebook cells...
+Running Cell 1 (Code Cell 1)...
+Running Cell 2 (Code Cell 2)...
+Running Cell 3 (Code Cell 3)...
+Running Cell 4 (Code Cell 4)...
+--- Cell 4 Stdout ---
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 30196 entries, 0 to 30195
+Data columns (total 29 columns):
+ #   Column                         Non-Null Count  Dtype  
+---  ------                         --------------  -----  
+ 0   year                           30196 non-null  int64  
+ 1   month                          30196 non-null  object 
+ 2   circle                         30196 non-null  object 
+ 3   type_of_connection             30196 non-null  object 
+ 4   service_provider               30196 non-null  object 
+ 5   value                          30196 non-null  float64
+ 6   unit                           30196 non-null  object 
+ 7   notes                          51 non-null     object 
+ 8   month_num                      30196 non-null  int64  
+ 9   date                           30196 non-null  object 
+ 10  subscribers_lag_1              30196 non-null  float64
+ 11  subscribers_lag_3              30196 non-null  float64
+ 12  subscribers_lag_6              30196 non-null  float64
+ 13  subscribers_lag_12             30196 non-null  float64
+ 14  mom_growth                     30196 non-null  float64
+ 15  yoy_growth                     30196 non-null  float64
+ 16  growth_volatility_3            30196 non-null  float64
+ 17  growth_volatility_6            30196 non-null  float64
+ 18  growth_volatility_12           30196 non-null  float64
+ 19  trend_12m                      30196 non-null  float64
+ 20  total_circle_subscribers       30196 non-null  float64
+ 21  market_share                   30196 non-null  float64
+ 22  market_rank                    30196 non-null  float64
+ 23  share_gap_leader               30196 non-null  float64
+ 24  relative_performance           30196 non-null  float64
+ 25  circle_type                    30196 non-null  object 
+ 26  is_wireless                    30196 non-null  float64
+ 27  market_size_category           30196 non-null  float64
+ 28  operator_geographic_diversity  30196 non-null  float64
+dtypes: float64(19), int64(2), object(8)
+memory usage: 6.7+ MB
+Running Cell 5 (Code Cell 5)...
+Running Cell 6 (Code Cell 6)...
+--- Cell 6 Stdout ---
+   year     month  ... market_size_category operator_geographic_diversity
+0  2009   January  ...             399688.0                          27.0
+1  2009  February  ...             399688.0                          27.0
+2  2009     March  ...             399688.0                          27.0
+3  2009     April  ...             399688.0                          27.0
+4  2009       May  ...             399688.0                          27.0
+
+[5 rows x 29 columns]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 30196 entries, 0 to 30195
+Data columns (total 29 columns):
+ #   Column                         Non-Null Count  Dtype  
+---  ------                         --------------  -----  
+ 0   year                           30196 non-null  int64  
+ 1   month                          30196 non-null  object 
+ 2   circle                         30196 non-null  object 
+ 3   type_of_connection             30196 non-null  object 
+ 4   service_provider               30196 non-null  object 
+ 5   value                          30196 non-null  float64
+ 6   unit                           30196 non-null  object 
+ 7   notes                          51 non-null     object 
+ 8   month_num                      30196 non-null  int64  
+ 9   date                           30196 non-null  object 
+ 10  subscribers_lag_1              30196 non-null  float64
+ 11  subscribers_lag_3              30196 non-null  float64
+ 12  subscribers_lag_6              30196 non-null  float64
+ 13  subscribers_lag_12             30196 non-null  float64
+ 14  mom_growth                     30196 non-null  float64
+ 15  yoy_growth                     30196 non-null  float64
+ 16  growth_volatility_3            30196 non-null  float64
+ 17  growth_volatility_6            30196 non-null  float64
+ 18  growth_volatility_12           30196 non-null  float64
+ 19  trend_12m                      30196 non-null  float64
+ 20  total_circle_subscribers       30196 non-null  float64
+ 21  market_share                   30196 non-null  float64
+ 22  market_rank                    30196 non-null  float64
+ 23  share_gap_leader               30196 non-null  float64
+ 24  relative_performance           30196 non-null  float64
+ 25  circle_type                    30196 non-null  object 
+ 26  is_wireless                    30196 non-null  float64
+ 27  market_size_category           30196 non-null  float64
+ 28  operator_geographic_diversity  30196 non-null  float64
+dtypes: float64(19), int64(2), object(8)
+memory usage: 6.7+ MB
+None
+Running Cell 7 (Code Cell 7)...
+--- Cell 7 Stdout ---
+                                 count  ...           max
+year                           30196.0  ...  2.025000e+03
+value                          30196.0  ...  2.955508e+08
+month_num                      30196.0  ...  1.200000e+01
+subscribers_lag_1              30196.0  ...  2.955508e+08
+subscribers_lag_3              30196.0  ...  2.955508e+08
+subscribers_lag_6              30196.0  ...  2.955508e+08
+subscribers_lag_12             30196.0  ...  2.955508e+08
+mom_growth                     30196.0  ...  1.026224e+04
+yoy_growth                     30196.0  ...  1.287314e+04
+growth_volatility_3            30196.0  ...  7.256502e+03
+growth_volatility_6            30196.0  ...  7.256502e+03
+growth_volatility_12           30196.0  ...  7.256502e+03
+trend_12m                      30196.0  ...  2.699598e+08
+total_circle_subscribers       30196.0  ...  3.637702e+08
+market_share                   30196.0  ...  1.000000e+00
+market_rank                    30196.0  ...  1.600000e+01
+share_gap_leader               30196.0  ...  8.124636e-01
+relative_performance           30196.0  ...  4.166926e+00
+is_wireless                    30196.0  ...  1.000000e+00
+market_size_category           30196.0  ...  1.166914e+11
+operator_geographic_diversity  30196.0  ...  2.700000e+01
+
+[21 rows x 8 columns]
+year                                 0
+month                                0
+circle                               0
+type_of_connection                   0
+service_provider                     0
+value                                0
+unit                                 0
+notes                            30145
+month_num                            0
+date                                 0
+subscribers_lag_1                    0
+subscribers_lag_3                    0
+subscribers_lag_6                    0
+subscribers_lag_12                   0
+mom_growth                           0
+yoy_growth                           0
+growth_volatility_3                  0
+growth_volatility_6                  0
+growth_volatility_12                 0
+trend_12m                            0
+total_circle_subscribers             0
+market_share                         0
+market_rank                          0
+share_gap_leader                     0
+relative_performance                 0
+circle_type                          0
+is_wireless                          0
+market_size_category                 0
+operator_geographic_diversity        0
+dtype: int64
+33 27
+Running Cell 8 (Code Cell 8)...
+Running Cell 9 (Code Cell 9)...
+--- Cell 9 Stdout ---
+Missing values after cleaning:
+ year                                 0
+month                                0
+circle                               0
+type_of_connection                   0
+service_provider                     0
+value                                0
+unit                                 0
+notes                            30145
+month_num                            0
+date                                 0
+subscribers_lag_1                    0
+subscribers_lag_3                    0
+subscribers_lag_6                    0
+subscribers_lag_12                   0
+mom_growth                           0
+yoy_growth                           0
+growth_volatility_3                  0
+growth_volatility_6                  0
+growth_volatility_12                 0
+trend_12m                            0
+total_circle_subscribers             0
+market_share                         0
+market_rank                          0
+share_gap_leader                     0
+relative_performance                 0
+circle_type                          0
+is_wireless                          0
+market_size_category                 0
+operator_geographic_diversity        0
+dtype: int64
+Running Cell 10 (Code Cell 10)...
+--- Cell 10 Stdout ---
+
+Numeric Summary:
+                                  count  ...           max
+year                           30196.0  ...  2.025000e+03
+value                          30196.0  ...  2.955508e+08
+month_num                      30196.0  ...  1.200000e+01
+subscribers_lag_1              30196.0  ...  2.955508e+08
+subscribers_lag_3              30196.0  ...  2.955508e+08
+subscribers_lag_6              30196.0  ...  2.955508e+08
+subscribers_lag_12             30196.0  ...  2.955508e+08
+mom_growth                     30196.0  ...  1.026224e+04
+yoy_growth                     30196.0  ...  1.287314e+04
+growth_volatility_3            30196.0  ...  7.256502e+03
+growth_volatility_6            30196.0  ...  7.256502e+03
+growth_volatility_12           30196.0  ...  7.256502e+03
+trend_12m                      30196.0  ...  2.699598e+08
+total_circle_subscribers       30196.0  ...  3.637702e+08
+market_share                   30196.0  ...  1.000000e+00
+market_rank                    30196.0  ...  1.600000e+01
+share_gap_leader               30196.0  ...  8.124636e-01
+relative_performance           30196.0  ...  4.166926e+00
+is_wireless                    30196.0  ...  1.000000e+00
+market_size_category           30196.0  ...  1.166914e+11
+operator_geographic_diversity  30196.0  ...  2.700000e+01
+
+[21 rows x 8 columns]
+Running Cell 11 (Code Cell 11)...
+Running Cell 12 (Code Cell 12)...
+Running Cell 13 (Code Cell 13)...
+Running Cell 14 (Code Cell 14)...
