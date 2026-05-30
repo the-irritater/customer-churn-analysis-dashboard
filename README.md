@@ -1,7 +1,7 @@
 # Customer Churn Analysis and Retention Strategy
 
 **Author:** Sanman Kadam  
-**Live Application:** [Interactive Streamlit Dashboard](https://customer-churn-analysis.streamlit.app/)  
+**Live Application:** [Interactive Streamlit Dashboard](https://customerchurnanalysisdashboard.streamlit.app/)  
 **Status:** Complete  
 **License:** MIT
 
