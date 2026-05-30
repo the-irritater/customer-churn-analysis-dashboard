@@ -21,44 +21,22 @@ The objective of this project is to:
 
 ## Project Architecture
 
+```mermaid
+graph TD
+    RawData["Raw Subscription & Customer Data (70K+ Records)"] --> Cleaning["Data Cleaning & Standardization (Naming standard, deduplication)"]
+    Cleaning --> Features["Feature Engineering (Lags, MoM/YoY growth, Volatility, Ratios)"]
+    Features --> Modeling["Predictive Modeling (XGBoost, Random Forest, Logistic Regression)"]
+    Modeling --> Risk["Risk Segmentation (High/Medium/Low risk tiers)"]
+    Risk --> Dashboard["Interactive Streamlit Dashboard (Value/Risk quadrants, Revenue Simulator)"]
+    Dashboard --> Business["Business Translation (Actionable recommendations, expected ROI)"]
 ```
-Raw Dataset (70K+ records)
-        |
-        v
-  Data Cleaning & Standardization
-  - Resolved naming inconsistencies across 30 circles
-  - Standardized provider names, connection types
-  - Removed duplicates, handled missing values
-        |
-        v
-  Feature Engineering
-  - Period-over-period subscriber changes
-  - Rolling averages and volatility measures
-  - Value-to-average ratio, categorical encoding
-        |
-        v
-  Exploratory Data Analysis
-  - Churn by circle, connection type, provider
-  - Geographic hotspot identification
-  - Revenue impact quantification
-        |
-        v
-  Predictive Modeling
-  - Logistic Regression (baseline)
-  - Random Forest
-  - XGBoost (selected model)
-        |
-        v
-  Risk Segmentation
-  - Composite scoring (0-100)
-  - Critical / High / Medium / Low tiers
-        |
-        v
-  Business Translation
-  - Executive summary with revenue impact
-  - Actionable recommendations with expected ROI
-  - Interactive Streamlit dashboard
-```
+
+### Data Pipeline Detail
+1. **Raw Data Ingestion:** Integrated telecom subscription metrics across 30 Indian circles and customer account profiles.
+2. **Data Cleaning & Standardization:** Resolved naming inconsistencies for circles and operators, handled missing values, and mapped object types.
+3. **Feature Engineering:** Calculated rolling averages, volatility, and categorical label encodings.
+4. **Predictive Analytics:** Standardized features and optimized classification parameter weights.
+5. **Business Execution:** Deployed the interactive dashboard to simulate recovery and guide action.
 
 ---
 
@@ -289,40 +267,48 @@ Three machine learning models were trained to predict subscriber churn at the ci
 
 ---
 
-## Analytical Measures
+## Analytical Measures (DAX & Python)
 
-The following analytical computations power the dashboard and model:
+To showcase dual-competency in Power BI (DAX) and Python, the core KPIs and metrics are calculated using the following formulas:
 
-**Churn Rate**
-```python
-churn_rate = (subscribers_lost / total_subscribers) * 100
-```
+### Power BI (DAX) Measures
 
-**Revenue at Risk**
-```python
-revenue_at_risk = df[df['churn'] == 1]['value'].sum()
-```
+* **Subscriber Churn Rate:**
+  ```dax
+  Churn Rate = DIVIDE([Churned Customers], [Total Customers], 0)
+  ```
+* **Annual Revenue at Risk:**
+  ```dax
+  Annual Revenue at Risk = [Subscribers Lost] * [ARPU] * 12
+  ```
+* **Projected Revenue Saved:**
+  ```dax
+  Revenue Recovered = [Annual Revenue at Risk] * [Target Churn Reduction %]
+  ```
+* **Campaign ROI (%):**
+  ```dax
+  Campaign ROI = DIVIDE([Revenue Recovered] - [Campaign Cost], [Campaign Cost], 0) * 100
+  ```
 
-**Risk Score (Composite Index)**
-```python
-risk_score = (
-    loss_rate_rank * 0.40 +          # Severity of losses
-    decline_frequency_rank * 0.35 +   # Consistency of decline
-    change_pct_rank * 0.25            # Rate of change
-)
-```
+### Python Calculations
 
-**ROI of Retention Program**
-```python
-roi = ((revenue_saved - investment) / investment) * 100
-```
-
-**Churn Probability (Model Output)**
-```python
-churn_probability = xgb_model.predict_proba(features)[:, 1]
-risk_label = np.where(churn_probability > 0.7, 'High Risk',
-             np.where(churn_probability > 0.4, 'Medium Risk', 'Low Risk'))
-```
+* **Aggregate Churn Rate:**
+  ```python
+  churn_rate = (subscribers_lost / total_subscribers) * 100
+  ```
+* **Composite Risk Score:**
+  ```python
+  risk_score = (
+      loss_rate_rank * 0.40 +          # Severity of losses
+      decline_frequency_rank * 0.35 +   # Consistency of decline
+      change_pct_rank * 0.25            # Rate of change
+  )
+  ```
+* **Sigmoid Churn Probability:**
+  ```python
+  z = beta_0 + sum(beta_i * x_i)
+  churn_probability = 1.0 / (1.0 + np.exp(-z))
+  ```
 
 ---
 
