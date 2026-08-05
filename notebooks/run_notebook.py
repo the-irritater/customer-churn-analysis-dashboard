@@ -25,6 +25,10 @@ def main():
             if not source.strip():
                 continue
             
+            # Prevent GUI hangs by forcing the non-interactive Agg backend at runtime
+            if "import matplotlib" in source or "from matplotlib" in source:
+                source = "import matplotlib\ntry:\n    matplotlib.use('Agg')\nexcept:\n    pass\n" + source
+            
             print(f"Running Cell {idx} (Code Cell {code_cell_idx})...")
             
             # Capture stdout and stderr
@@ -60,13 +64,13 @@ def main():
             
             # Print to log
             if stdout_text:
-                print(f"--- Cell {idx} Stdout ---")
+                print(f"- Cell {idx} Stdout -")
                 print(stdout_text.rstrip())
             if stderr_text:
-                print(f"--- Cell {idx} Stderr ---")
+                print(f"- Cell {idx} Stderr -")
                 print(stderr_text.rstrip())
             if error_occurred:
-                print(f"--- Cell {idx} Error ---")
+                print(f"- Cell {idx} Error -")
                 print(''.join(error_info["traceback"]).rstrip())
                 
             # Prepare outputs list for the notebook cell

@@ -39,9 +39,9 @@ except ImportError:
     HAS_XGBOOST = False
     print("Warning: XGBoost not installed. Skipping XGBoost model.")
 
-# ---------------------------------------------------------------------------
+# -
 # Configuration
-# ---------------------------------------------------------------------------
+# -
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_PATH = PROJECT_ROOT / "data" / "Cleaned_Telecom_Subscriptions.csv"
 IMAGE_DIR = PROJECT_ROOT / "images"
@@ -79,9 +79,9 @@ plt.rcParams.update({
 })
 
 
-# ---------------------------------------------------------------------------
+# -
 # Data Preparation for Modeling
-# ---------------------------------------------------------------------------
+# -
 def prepare_modeling_data():
     """
     Transform raw subscription data into a supervised learning dataset.
@@ -123,8 +123,10 @@ def prepare_modeling_data():
     df["change_pct"] = (df["subscriber_change"] / df["prev_value"]) * 100
     df = df.dropna(subset=["prev_value"])
 
-    # Target: did subscribers decline?
-    df["churn"] = (df["subscriber_change"] < 0).astype(int)
+    # Target: did subscribers decline in the next month (t+1)?
+    df["churn_next"] = df.groupby(["circle", "service_provider", "type_of_connection"])["subscriber_change"].shift(-1)
+    df = df.dropna(subset=["churn_next"])
+    df["churn"] = (df["churn_next"] < 0).astype(int)
 
     # Feature engineering
     # Rolling averages
@@ -169,9 +171,9 @@ def prepare_modeling_data():
     return X, y, feature_names, le_circle, le_provider, le_conn
 
 
-# ---------------------------------------------------------------------------
+# -
 # Model Training and Evaluation
-# ---------------------------------------------------------------------------
+# -
 def train_and_evaluate(X, y, feature_names):
     """Train LR, RF, and XGBoost; return results dictionary."""
     print("\nTraining models...")
@@ -262,9 +264,9 @@ def train_and_evaluate(X, y, feature_names):
     return results, feature_names, scaler
 
 
-# ---------------------------------------------------------------------------
+# -
 # Visualization Functions
-# ---------------------------------------------------------------------------
+# -
 def plot_model_comparison(results):
     """Bar chart comparing all models across metrics."""
     print("\n  Plotting model comparison...")
@@ -325,7 +327,7 @@ def plot_roc_curves(results):
             label=f"{name} (AUC = {res['roc_auc']:.3f})",
         )
 
-    ax.plot([0, 1], [0, 1], color=COLORS["neutral_grey"], linewidth=1, linestyle="--", label="Random Baseline")
+    ax.plot([0, 1], [0, 1], color=COLORS["neutral_grey"], linewidth=1, linestyle="-", label="Random Baseline")
 
     ax.set_xlabel("False Positive Rate")
     ax.set_ylabel("True Positive Rate")
@@ -434,9 +436,9 @@ def print_model_table(results):
     print(f"\nBest Model: {best} (ROC-AUC: {results[best]['roc_auc']:.4f})")
 
 
-# ---------------------------------------------------------------------------
+# -
 # Main
-# ---------------------------------------------------------------------------
+# -
 def main():
     print("=" * 60)
     print("CHURN PREDICTION MODEL")

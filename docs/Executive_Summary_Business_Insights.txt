@@ -5,7 +5,7 @@
 Author: Sanman Kadam
 
 1. SITUATION OVERVIEW
---------------------------------------------------------------------------------
+-
 Our predictive model identified 17,499 at-risk customers (30.0% of total base)
 representing $0.15B in potential revenue loss. Analysis of 70,000+ subscription
 records across 30 telecom circles reveals significant geographic, connection
@@ -16,7 +16,7 @@ critical regions like Andaman and Nicobar, indicating systemic issues in
 specific markets.
 
 2. KEY FINDINGS (Data-Backed)
---------------------------------------------------------------------------------
+-
 Finding 1: Geographic Concentration
    - 5 circles classified as Critical Risk account for a disproportionate
      share of subscriber losses
@@ -42,7 +42,7 @@ Finding 4: Temporal Patterns
    - Provider market share shifts correlate with competitive activity
 
 3. FINANCIAL IMPACT & ROI
---------------------------------------------------------------------------------
+-
 Proposed Intervention Program:
    - Investment Required: $1,524.6M (retention campaigns & incentives)
    - Expected Retention: 4,375 customers (25% success rate)
@@ -57,7 +57,7 @@ Scenario Analysis:
    - Aggressive (50% retention):   $179,903.8M net benefit, 5,900% ROI
 
 4. PREDICTIVE MODEL PERFORMANCE
---------------------------------------------------------------------------------
+-
 Three models were evaluated:
 
    Logistic Regression:
@@ -79,7 +79,7 @@ Three models were evaluated:
       4. 3-Period Volatility
 
 5. STRATEGIC RECOMMENDATIONS
---------------------------------------------------------------------------------
+-
 Immediate Actions (0-3 months):
    > Deploy targeted retention campaigns in top 5 Critical Risk circles
    > Implement early warning system using XGBoost churn prediction model
@@ -96,7 +96,7 @@ Long-term Strategy (6-12 months):
    > Build real-time churn monitoring with quarterly model retraining
 
 6. SUCCESS METRICS
---------------------------------------------------------------------------------
+-
 KPIs to Monitor:
    - Monthly churn rate (Target: <25.5%, representing 15% reduction)
    - Customer retention cost vs. lifetime value ratio
@@ -110,7 +110,7 @@ Risk Mitigation:
    - Regular model retraining with fresh data (quarterly)
 
 CONCLUSION
---------------------------------------------------------------------------------
+-
 The churn prediction model provides a data-driven foundation for proactive
 customer retention. With a potential ROI of 5,900% and $89,951.9M net benefit,
 the proposed intervention program offers substantial value. Implementation

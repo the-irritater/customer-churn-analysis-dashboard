@@ -20,19 +20,19 @@ from plotly.subplots import make_subplots
 from pathlib import Path
 import joblib
 
-# ---------------------------------------------------------------------------
+# -
 # Page Configuration
-# ---------------------------------------------------------------------------
+# -
 st.set_page_config(
     page_title="Customer Churn Analysis Dashboard",
-    page_icon="📊",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# ---------------------------------------------------------------------------
+# -
 # Configuration
-# ---------------------------------------------------------------------------
+# -
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_PATH = PROJECT_ROOT / "data" / "Cleaned_Telecom_Subscriptions.csv"
 RISK_PATH = PROJECT_ROOT / "data" / "circle_risk_scores.csv"
@@ -63,9 +63,9 @@ RISK_COLORS = {
 }
 
 
-# ---------------------------------------------------------------------------
+# -
 # Custom CSS
-# ---------------------------------------------------------------------------
+# -
 st.markdown("""
 <style>
     .main .block-container {
@@ -92,9 +92,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# ---------------------------------------------------------------------------
+# -
 # Data Loading & ML Component Loading
-# ---------------------------------------------------------------------------
+# -
 @st.cache_data
 def load_data():
     """Load and prepare the subscription dataset."""
@@ -185,20 +185,20 @@ def load_ml_components():
     return components
 
 
-# ---------------------------------------------------------------------------
+# -
 # Page: Overview
-# ---------------------------------------------------------------------------
+# -
 def page_overview(df, df_circles, df_metrics, risk_data):
     st.title("Customer Churn Analysis Dashboard")
     st.markdown("**Author: Sanman Kadam** | Telecom Subscriber Attrition Analysis")
-    st.markdown("---")
+    st.markdown("-")
 
     domain = st.radio(
         "Select Analysis Domain",
         ["Regional & Operator Analysis (TRAI Dataset)", "Customer Account Analysis (IBM Telco Profile)"],
         horizontal=True
     )
-    st.markdown("---")
+    st.markdown("-")
 
     if domain == "Regional & Operator Analysis (TRAI Dataset)":
         # 1. KPIs
@@ -216,7 +216,7 @@ def page_overview(df, df_circles, df_metrics, risk_data):
         col4.metric("Subscribers Lost", f"{total_lost / 1e9:.2f}B")
         col5.metric("Avg Loss Rate", f"{avg_loss_rate:.2f}%")
 
-        st.markdown("---")
+        st.markdown("-")
 
         # Layout
         col_left, col_right = st.columns(2)
@@ -266,11 +266,11 @@ def page_overview(df, df_circles, df_metrics, risk_data):
             )
             st.plotly_chart(fig, use_container_width=True)
 
-        st.markdown("---")
+        st.markdown("-")
         st.subheader("Executive Insights & Strategic Action Items")
         st.markdown("""
         | Business Insight | Strategic Impact & Recommendation |
-        |---|---|
+        |-|-|
         | **Disproportionate Wireline Attrition** | Wireline connections exhibit a disproportionately higher churn rate compared to wireless connections, making them the highest-priority retention segment for product stability. |
         | **Concentrated Geographic Risk** | Subscriber loss is heavily concentrated in 5 critical geographic circles, requiring localized, targeted retention campaigns to prevent localized market share erosion. |
         | **Low-Value Base Instability** | Low-value subscribers demonstrate a 3x higher likelihood of churn compared to premium cohorts. Stabilizing this segment through automatic payment incentives can secure foundational volume. |
@@ -287,7 +287,7 @@ def page_overview(df, df_circles, df_metrics, risk_data):
         col4.metric("Avg Monthly Revenue", "$64.76")
         col5.metric("Monthly Revenue Lost", "$139,130")
 
-        st.markdown("---")
+        st.markdown("-")
 
         # Executive Summary Section
         st.subheader("Executive Summary & Key Findings")
@@ -304,7 +304,7 @@ def page_overview(df, df_circles, df_metrics, risk_data):
             * **Internet Service Sensitivity:** Fiber Optic customers exhibit higher churn than DSL users, pointing to pricing sensitivity or localized competitive quality differences.
             """)
 
-        st.markdown("---")
+        st.markdown("-")
 
         # Plots for IBM Telco Churn
         col_plot1, col_plot2 = st.columns(2)
@@ -361,12 +361,12 @@ def page_overview(df, df_circles, df_metrics, risk_data):
             st.plotly_chart(fig, use_container_width=True)
 
 
-# ---------------------------------------------------------------------------
+# -
 # Page: Geographic Analysis
-# ---------------------------------------------------------------------------
+# -
 def page_geographic(df_circles, df_metrics, risk_data):
     st.title("Geographic Analysis")
-    st.markdown("---")
+    st.markdown("-")
 
     # Circle selector
     circles = sorted(df_circles["circle"].unique())
@@ -433,7 +433,7 @@ def page_geographic(df_circles, df_metrics, risk_data):
 
     # Risk segmentation scatter
     if risk_data is not None:
-        st.markdown("---")
+        st.markdown("-")
         st.subheader("Risk vs Subscriber Volume Matrix")
         fig = px.scatter(
             risk_data, x="risk_score", y="total_subscribers",
@@ -456,19 +456,19 @@ def page_geographic(df_circles, df_metrics, risk_data):
         st.plotly_chart(fig, use_container_width=True)
 
 
-# ---------------------------------------------------------------------------
+# -
 # Page: Revenue Recovery & Retention Strategy
-# ---------------------------------------------------------------------------
+# -
 def page_revenue(df_circles, df_metrics):
     st.title("Revenue Recovery & Retention Strategy")
-    st.markdown("---")
+    st.markdown("-")
 
     domain = st.radio(
         "Select Revenue Analysis Domain",
         ["Regional & Operator Revenue Strategy (TRAI)", "Customer Account Revenue Strategy (IBM Telco)"],
         horizontal=True
     )
-    st.markdown("---")
+    st.markdown("-")
 
     if domain == "Regional & Operator Revenue Strategy (TRAI)":
         # 1. Simulation Sliders in Sidebar
@@ -497,7 +497,7 @@ def page_revenue(df_circles, df_metrics):
         else:
             fin_col4.metric("Net Financial Benefit", f"${net_benefit / 1e6:.1f}M", delta=f"{roi:.1f}% ROI", delta_color="inverse")
 
-        st.markdown("---")
+        st.markdown("-")
         # Segmentation Scatter
         st.subheader("Value vs. Risk Customer Segmentation")
         latest_period = df_metrics["period"].max()
@@ -587,7 +587,7 @@ def page_revenue(df_circles, df_metrics):
         else:
             fin_col4.metric("Net Financial Saving", f"${net_financial_saving:,.2f}", delta=f"{roi_customer:.1f}% ROI", delta_color="inverse")
 
-        st.markdown("---")
+        st.markdown("-")
 
         # Revenue Lost by Contract Type, Payment Method, and Internet Service
         col_lost1, col_lost2 = st.columns(2)
@@ -642,11 +642,11 @@ def page_revenue(df_circles, df_metrics):
             )
             st.plotly_chart(fig, use_container_width=True)
 
-        st.markdown("---")
+        st.markdown("-")
         st.subheader("Retention Strategy Simulation & Recommendations")
         st.markdown("""
         | Vulnerability / Segment | Actionable Recommendation | Expected Business Outcome |
-        | :--- | :--- | :--- |
+        | :- | :- | :- |
         | **High churn among new customers** | Improve initial onboarding experience, clear pricing transparency, and 30-day proactive service checks. | Reduces early tenure churn by **15-20%**. |
         | **High churn in month-to-month plans** | Offer auto-upgrade discounts for annual contracts and multi-month packages. | Transition 25% of month-to-month base to stable contracts. |
         | **High churn from electronic-check users** | Promote autopay adoption with cash-back rewards or credit incentives. | Eliminates manual payment friction, reducing transactional churn by **30%**. |
@@ -654,12 +654,12 @@ def page_revenue(df_circles, df_metrics):
         """)
 
 
-# ---------------------------------------------------------------------------
+# -
 # Page: Trend Analysis
-# ---------------------------------------------------------------------------
+# -
 def page_trends(df_circles, df_metrics):
     st.title("Trend Analysis")
-    st.markdown("---")
+    st.markdown("-")
 
     # Time granularity selector
     granularity = st.radio("Time Granularity", ["Monthly", "Quarterly", "Yearly"], horizontal=True)
@@ -738,7 +738,7 @@ def page_trends(df_circles, df_metrics):
         st.plotly_chart(fig, use_container_width=True)
 
     # Provider trends
-    st.markdown("---")
+    st.markdown("-")
     st.subheader("Provider Market Share Over Time")
 
     top_providers = (
@@ -772,12 +772,12 @@ def page_trends(df_circles, df_metrics):
     st.plotly_chart(fig, use_container_width=True)
 
 
-# ---------------------------------------------------------------------------
+# -
 # Page: Predictions & ML Modeling
-# ---------------------------------------------------------------------------
+# -
 def page_predictions(df_metrics):
     st.title("Predictions & Machine Learning Modeling")
-    st.markdown("---")
+    st.markdown("-")
 
     ml_components = load_ml_components()
     
@@ -786,7 +786,7 @@ def page_predictions(df_metrics):
         ["Regional & Operator Model (TRAI)", "Individual Customer Account Model (IBM Telco Profile)"],
         horizontal=True
     )
-    st.markdown("---")
+    st.markdown("-")
 
     if domain == "Regional & Operator Model (TRAI)":
         tab_pred, tab_eval = st.tabs(["Interactive Churn Predictor", "Model Evaluation & Metrics"])
@@ -901,11 +901,11 @@ def page_predictions(df_metrics):
                         st.metric("Customer Risk Score", f"{risk_score:.1f} / 100")
                         
                         if prob > 0.7:
-                            st.error("🚨 **CRITICAL RISK SEGMENT**: This segment has a high likelihood of churn. Immediate personalized campaigns are recommended.")
+                            st.error(" **CRITICAL RISK SEGMENT**: This segment has a high likelihood of churn. Immediate personalized campaigns are recommended.")
                         elif prob > 0.4:
-                            st.warning("⚠️ **ELEVATED RISK SEGMENT**: Moderate churn probability. Autopay and multi-year contract promotions are advised.")
+                            st.warning(" **ELEVATED RISK SEGMENT**: Moderate churn probability. Autopay and multi-year contract promotions are advised.")
                         else:
-                            st.success("✅ **STABLE / LOW RISK SEGMENT**: High probability of retention. Safe to target with upgrade cross-selling campaigns.")
+                            st.success(" **STABLE / LOW RISK SEGMENT**: High probability of retention. Safe to target with upgrade cross-selling campaigns.")
                     
                     with col_res2:
                         fig = go.Figure(go.Indicator(
@@ -1058,11 +1058,11 @@ def page_predictions(df_metrics):
                 st.metric("Customer Churn Risk Score", f"{prob * 100:.1f} / 100")
                 
                 if prob > 0.7:
-                    st.error("🚨 **CRITICAL RISK CUSTOMER**: High probability of churn. Immediate outreach required: offer autopay incentives and transition to annual contract with discounts.")
+                    st.error(" **CRITICAL RISK CUSTOMER**: High probability of churn. Immediate outreach required: offer autopay incentives and transition to annual contract with discounts.")
                 elif prob > 0.3:
-                    st.warning("⚠️ **ELEVATED RISK CUSTOMER**: Moderate probability of churn. Recommend automatic email campaigns and promotional upgrades.")
+                    st.warning(" **ELEVATED RISK CUSTOMER**: Moderate probability of churn. Recommend automatic email campaigns and promotional upgrades.")
                 else:
-                    st.success("✅ **STABLE / LOW RISK CUSTOMER**: High retention likelihood. Focus on upselling premium internet packages or streaming services.")
+                    st.success(" **STABLE / LOW RISK CUSTOMER**: High retention likelihood. Focus on upselling premium internet packages or streaming services.")
                     
                 # Show Customer Feature Importance
                 st.markdown("##### Dynamic Feature Risk Contribution")
@@ -1108,12 +1108,12 @@ def page_predictions(df_metrics):
                 st.plotly_chart(fig, use_container_width=True)
 
 
-# ---------------------------------------------------------------------------
+# -
 # Page: Customer Details (Drill-Through)
-# ---------------------------------------------------------------------------
+# -
 def page_details(df_circles, df_metrics):
     st.title("Customer Details — Drill-Through")
-    st.markdown("---")
+    st.markdown("-")
 
     col1, col2, col3 = st.columns(3)
 
@@ -1153,7 +1153,7 @@ def page_details(df_circles, df_metrics):
         s_col4.metric("Decline Periods", f"{filtered['subscribers_lost'].gt(0).sum():,}")
 
     # Data table
-    st.markdown("---")
+    st.markdown("-")
     display_cols = [
         "period", "circle", "service_provider", "type_of_connection",
         "value", "prev_value", "subscriber_change", "change_pct",
@@ -1166,9 +1166,9 @@ def page_details(df_circles, df_metrics):
     )
 
 
-# ---------------------------------------------------------------------------
+# -
 # Main Application
-# ---------------------------------------------------------------------------
+# -
 def main():
     # Load data
     df, df_circles = load_data()
@@ -1177,7 +1177,7 @@ def main():
 
     # Sidebar navigation
     st.sidebar.title("Navigation")
-    st.sidebar.markdown("---")
+    st.sidebar.markdown("-")
 
     page = st.sidebar.radio(
         "Select Page",
@@ -1191,7 +1191,7 @@ def main():
         ],
     )
 
-    st.sidebar.markdown("---")
+    st.sidebar.markdown("-")
     st.sidebar.markdown("**Author:** Sanman Kadam")
     st.sidebar.markdown("**Data:** TRAI Telecom Subscriptions")
     st.sidebar.markdown("**Models:** LR, RF, XGBoost")

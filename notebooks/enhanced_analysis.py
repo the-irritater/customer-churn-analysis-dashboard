@@ -23,9 +23,9 @@ import warnings
 
 warnings.filterwarnings("ignore")
 
-# ---------------------------------------------------------------------------
+# -
 # Configuration
-# ---------------------------------------------------------------------------
+# -
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_PATH = PROJECT_ROOT / "data" / "Cleaned_Telecom_Subscriptions.csv"
 IMAGE_DIR = PROJECT_ROOT / "images"
@@ -77,9 +77,9 @@ MONTH_ORDER = [
 ]
 
 
-# ---------------------------------------------------------------------------
+# -
 # Data Loading and Preparation
-# ---------------------------------------------------------------------------
+# -
 def load_and_prepare_data():
     """Load and clean the telecom subscription dataset."""
     print("Loading data...")
@@ -127,9 +127,9 @@ def load_and_prepare_data():
     return df, df_circles
 
 
-# ---------------------------------------------------------------------------
+# -
 # Churn Rate Calculation
-# ---------------------------------------------------------------------------
+# -
 def calculate_churn_metrics(df_circles):
     """
     Calculate churn-like metrics by comparing subscriber counts across periods.
@@ -160,9 +160,9 @@ def calculate_churn_metrics(df_circles):
     return df_sorted
 
 
-# ---------------------------------------------------------------------------
+# -
 # Circle-Level Risk Scoring
-# ---------------------------------------------------------------------------
+# -
 def calculate_circle_risk(df_metrics):
     """Segment circles into risk tiers based on subscriber loss patterns."""
     print("Calculating circle risk scores...")
@@ -195,9 +195,9 @@ def calculate_circle_risk(df_metrics):
     return circle_stats.sort_values("risk_score", ascending=False)
 
 
-# ---------------------------------------------------------------------------
+# -
 # Visualization Functions
-# ---------------------------------------------------------------------------
+# -
 def plot_revenue_impact_by_circle(df_metrics, top_n=15):
     """Revenue at risk by circle — top N circles."""
     print(f"  Plotting revenue impact by circle (top {top_n})...")
@@ -320,7 +320,7 @@ def plot_monthly_churn_trend(df_metrics):
     # Chart 1: Net subscriber change
     colors_net = [COLORS["safe_green"] if x > 0 else COLORS["risk_red"] for x in monthly["net_change"]]
     axes[0].bar(range(len(monthly)), monthly["net_change"], color=colors_net, edgecolor="white", linewidth=0.5)
-    axes[0].axhline(y=0, color=COLORS["dark_grey"], linewidth=0.8, linestyle="--")
+    axes[0].axhline(y=0, color=COLORS["dark_grey"], linewidth=0.8, linestyle="-")
     axes[0].set_title("Net Subscriber Change by Period")
     axes[0].set_ylabel("Net Change")
     axes[0].yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f"{x / 1e6:.1f}M"))
@@ -397,9 +397,9 @@ def plot_risk_segmentation(circle_risk):
     axes[1].yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f"{x / 1e6:.0f}M"))
 
     # Add quadrant lines
-    axes[1].axvline(x=50, color=COLORS["neutral_grey"], linewidth=0.8, linestyle="--", alpha=0.5)
+    axes[1].axvline(x=50, color=COLORS["neutral_grey"], linewidth=0.8, linestyle="-", alpha=0.5)
     axes[1].axhline(y=cr["total_subscribers"].median(), color=COLORS["neutral_grey"],
-                    linewidth=0.8, linestyle="--", alpha=0.5)
+                    linewidth=0.8, linestyle="-", alpha=0.5)
 
     for ax in axes:
         ax.spines["top"].set_visible(False)
@@ -516,9 +516,9 @@ def plot_executive_kpi_dashboard(df, df_circles, circle_risk):
     plt.close()
 
 
-# ---------------------------------------------------------------------------
+# -
 # Summary Statistics for README
-# ---------------------------------------------------------------------------
+# -
 def print_summary_stats(df_circles, df_metrics, circle_risk):
     """Print key statistics that will be used in the README."""
     print("\n" + "=" * 60)
@@ -550,9 +550,9 @@ def print_summary_stats(df_circles, df_metrics, circle_risk):
     print("=" * 60)
 
 
-# ---------------------------------------------------------------------------
+# -
 # Main
-# ---------------------------------------------------------------------------
+# -
 def main():
     print("=" * 60)
     print("ENHANCED CHURN ANALYSIS")
